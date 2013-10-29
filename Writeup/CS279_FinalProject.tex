@@ -90,10 +90,21 @@ TBD
 }
 
 \section{Introduction}
+\subsection{Motivation}
+Intensive workout programs such as P90x, Insanity, and Rushfit promise users to transform their bodies into the “best shape of their life” by following a 60 to 90 days workout regimen.  These types of routines feature methodologies such as “Muscle Confusion,” “Max Interval Training,” or “High Intensity Interval Training,” which all fall into the Metabolic Conditioning exercise category---exercises that increase the storage and delivery of energy for any activity through the improvement of strength and endurance.  While a multitude of users report great results, many do not endure long enough to reap the fitness benefits of these programs. Prior research (see related work section) has shown that motivation improves exercise adherence. Accordingly, it is our belief that one of the main reasons people fail to persevere these exercise regimen is the lack of observable progress from one workout to the next, a crucial motivating factor. Unlike strength training exercises--such as bench press or deadlift--the incremental improvements of Metabolic Conditioning workouts are often not apparent until weeks into the program, causing many users to lose motivation and quit the program early in the 60-90 days regimen. The goal of our study is to leverage motion tracking devices such as the Microsoft Kinect to create a software tool for calculating incremental progress for Metabolic Conditioning exercises and ultimately motivate users to adhere to their Metabolic Conditioning routine of choice.
 
-\section{Approach}
+\subsection{Approach}
+The intensity of a MC type exercise movement can be measured by the amount of resistance (either body resistance or use of external weights), the volume of repetitions performed and the power or rate at which work is performed. It is our goal to use relatively inexpensive technology, such as the Microsoft Kinect, to measure exerciser’s progress with a reasonable accuracy.
+We aim to meet with our fitness experts to create a workout in the style of P90x and Insanity that features exercises that fit the following criteria:
+\begin{itemize}
+	\item Requires little to no prior skill or training
+	\item Requires strength to accurately achieve the best stance for that particular move
+	\item Requires stamina to complete the exercise move at a fast rate.
+\end{itemize}
+We will use the performance of our experts with the generated MC workout routine and use these accumulation of these to establish the expert fitness benchmark.  We then plan to both record the footage of each participant completing the routine and use the depth sensor to measure factors such as rate of exercise move, body form (predominantly angles between limbs), speed, height (where applicable), the duration and frequency of resting time, and the volume of repetitions performed.  We will then calculate a score or percentage of the expert benchmark using the collected data.  We will track the progress of participant over a span of 14 days and after the completion of each session we will gather the participant’s mental recollection of their progress before and after the progress data is revealed to them using both in person interview style questions and a questionnaire to collect a wide array of both qualitative and quantitative data and to avoid bias.
 
-\section{Contribution}
+\subsection{Contribution}
+If successful, our work will show that currently hard to benchmark exercises can be evaluated in terms of performance with relatively inexpensive hardware.  We predict that our measurement tool could be meaningful to potential users to track minute performance improvements and, ultimately, inspire them to continue working towards their fitness goals.  Much research has already been done regarding measuring exercise performance using technology that has inspired and motivated this research project.  We believe our work addresses a hole in this field that has not been explored that we believe will spark future work in the field of exercise motivation and progress analysis through the use of inexpensive technology.
 
 \section{Previous Work}
 
