@@ -6,12 +6,15 @@
 
 namespace Microsoft.Samples.Kinect.SkeletonBasics
 {
+    using System;
     using System.IO;
+    using System.Text;
     using System.Windows;
     using System.Windows.Media;
     using Microsoft.Kinect;
     using System.Windows.Controls;
     using SkeletonBasics.Exercises;
+    //using SkeletonBasics.HelperFunctions;
     
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -33,14 +36,24 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         private DrawingImage imageSource;
 
         // code for the csv data file
+        private static string filePath = @"C:\Users\Megan\Documents\GitHub\CS279_FinalProject_MQ_VB\Code\SkeletonPerformanceTool\Data\";
+        private static string fileName = HelperFunctions.GetFileName(DateTime.Now);
+        private StringBuilder stringBuilder = new StringBuilder();
+        
+        
+        //private CsvFileWriter FileWriter = new CsvFileWriter(filePath + fileName);
+        //private CsvRow CurrentRow = new CsvRow();
+           
 
         // globals to keep track of progress in routine (starts out as rest)
         private Move currentMove = new Move(0, 60);
+
 
         /// Initializes a new instance of the MainWindow class.
         public MainWindow()
         {
             InitializeComponent();
+           
         }
 
         /// <summary>
@@ -90,6 +103,10 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         /// <param name="e">event arguments</param>
         private void WindowLoaded(object sender, RoutedEventArgs e)
         {
+            File.AppendAllText(filePath + fileName, "testing\n");
+            File.AppendAllText(filePath + fileName, "2,3,4,5,5\n");
+            File.AppendAllText(filePath + fileName, "23.3, 2343, 23.4\n");
+           // WriteLine(CurrentRow.LineText);
             // Create the drawing group we'll use for drawing
             this.drawingGroup = new DrawingGroup();
 
