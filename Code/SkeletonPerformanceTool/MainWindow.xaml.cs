@@ -10,8 +10,9 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
     using System.Windows;
     using System.Windows.Media;
     using Microsoft.Kinect;
-    //using 
-
+    using System.Windows.Controls;
+    using SkeletonBasics.Exercises;
+    
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
@@ -30,6 +31,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         private KinectSensor sensor;
         private DrawingGroup drawingGroup;
         private DrawingImage imageSource;
+
+        // code for the csv data file
 
         /// Initializes a new instance of the MainWindow class.
         public MainWindow()
