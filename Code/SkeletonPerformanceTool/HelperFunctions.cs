@@ -13,10 +13,15 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             return dateTime.ToString("yyyyMMddHHmmssffff");
         }
 
-        internal static string GetFileName(DateTime dateTime)
+        internal static int GetMSeconds(DateTime dateTime)
+        {
+            return (int) dateTime.TimeOfDay.TotalMilliseconds;
+        }
+
+        internal static string GetFolderName(DateTime dateTime)
         {
             string timeStamp = GetTimeStamp(dateTime);
-            return "session" + timeStamp + ".csv";
+            return "session" + timeStamp;
         }
     }
 }

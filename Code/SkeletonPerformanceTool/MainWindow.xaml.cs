@@ -36,17 +36,13 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         private DrawingImage imageSource;
 
         // code for the csv data file
-        private static string filePath = @"C:\Users\Megan\Documents\GitHub\CS279_FinalProject_MQ_VB\Code\SkeletonPerformanceTool\Data\";
-        private static string fileName = HelperFunctions.GetFileName(DateTime.Now);
-        private StringBuilder stringBuilder = new StringBuilder();
-        
-        
-        //private CsvFileWriter FileWriter = new CsvFileWriter(filePath + fileName);
-        //private CsvRow CurrentRow = new CsvRow();
-           
-
+        private int moveNumber = 0;
+        private static string fileBase = @"C:\Users\Megan\Documents\GitHub\CS279_FinalProject_MQ_VB\Code\SkeletonPerformanceTool\Data\";
+        private static string folderName = HelperFunctions.GetFolderName(DateTime.Now);
+        private static string columnHeadings = "TimeStamp, FootLeft_x, FootRight_x, FootLeft_y, FootRight_y, WristLeft_x, WristRight_x,WristLeft_z, WristRight_z,KneeLeft_x, KneeRight_x,KneeLeft_y, KneeRight_y,ElbowLeft_x, ElbowRight_x,ElbowLeft_y, ElbowRight_y,Spine_y,AnkleLeft_y, AnkleRight_y\n";
+        private string fileName;
         // globals to keep track of progress in routine (starts out as rest)
-        private Move currentMove = new Move(0, 60);
+        //private Move currentMove = new Move(0, 60);
 
 
         /// Initializes a new instance of the MainWindow class.
@@ -96,6 +92,27 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             }
         }
 
+        private void StartClick(object sender, RoutedEventArgs e)
+        {
+            if (moveNumber == 0)
+            {
+                moveNumber = 1;
+                System.IO.Directory.CreateDirectory(fileBase + folderName);
+                fileName = fileBase + folderName + @"\move" + moveNumber.ToString() + ".csv";
+                Console.WriteLine(fileName);
+                File.AppendAllText(fileName, columnHeadings);
+                return;
+            }
+            else return;
+        }
+
+        private void NextClick(object sender, RoutedEventArgs e)
+        {
+            moveNumber++;
+            fileName = fileBase + folderName + @"\move" + moveNumber.ToString() + ".csv";
+            File.AppendAllText(fileName, columnHeadings);
+        }
+
         /// <summary>
         /// Execute startup tasks
         /// </summary>
@@ -103,10 +120,9 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         /// <param name="e">event arguments</param>
         private void WindowLoaded(object sender, RoutedEventArgs e)
         {
-            File.AppendAllText(filePath + fileName, "testing\n");
-            File.AppendAllText(filePath + fileName, "2,3,4,5,5\n");
-            File.AppendAllText(filePath + fileName, "23.3, 2343, 23.4\n");
-           // WriteLine(CurrentRow.LineText);
+            // create directory where we will store data
+            
+            //File.AppendAllText(file, "Data\n");
             // Create the drawing group we'll use for drawing
             this.drawingGroup = new DrawingGroup();
 
@@ -150,7 +166,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
             if (null == this.sensor)
             {
-                this.statusBarText.Text = Properties.Resources.NoKinectReady;
+                //this.statusBarText.Text = Properties.Resources.NoKinectReady;
             }
         }
 
@@ -224,6 +240,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         /// <param name="drawingContext">drawing context to draw to</param>
         private void DrawBonesAndJoints(Skeleton skeleton, DrawingContext drawingContext)
         {
+            StringBuilder sb = new StringBuilder();
+            
             // Render Torso
             this.DrawBone(skeleton, drawingContext, JointType.Head, JointType.ShoulderCenter);
             this.DrawBone(skeleton, drawingContext, JointType.ShoulderCenter, JointType.ShoulderLeft);
@@ -233,11 +251,35 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             this.DrawBone(skeleton, drawingContext, JointType.HipCenter, JointType.HipLeft);
             this.DrawBone(skeleton, drawingContext, JointType.HipCenter, JointType.HipRight);
 
+            sb.Append(HelperFunctions.GetMSeconds(DateTime.Now) + ", ");
+            sb.Append(skeleton.Joints[JointType.FootLeft].Position.X.ToString() + ", ");
+            sb.Append(skeleton.Joints[JointType.FootRight].Position.X.ToString() + ", ");
+            sb.Append(skeleton.Joints[JointType.FootLeft].Position.Y.ToString() + ", ");
+            sb.Append(skeleton.Joints[JointType.FootRight].Position.Y.ToString() + ", ");
+            sb.Append(skeleton.Joints[JointType.WristLeft].Position.X.ToString() + ", ");
+            sb.Append(skeleton.Joints[JointType.WristRight].Position.X.ToString() + ", ");
+            sb.Append(skeleton.Joints[JointType.WristLeft].Position.Z.ToString() + ", ");
+            sb.Append(skeleton.Joints[JointType.WristRight].Position.Z.ToString() + ", ");
+            sb.Append(skeleton.Joints[JointType.KneeLeft].Position.X.ToString() + ", ");
+            sb.Append(skeleton.Joints[JointType.KneeRight].Position.X.ToString() + ", ");
+            sb.Append(skeleton.Joints[JointType.KneeLeft].Position.Y.ToString() + ", ");
+            sb.Append(skeleton.Joints[JointType.KneeRight].Position.Y.ToString() + ", ");
+            sb.Append(skeleton.Joints[JointType.ElbowLeft].Position.X.ToString() + ", ");
+            sb.Append(skeleton.Joints[JointType.ElbowRight].Position.X.ToString() + ", ");
+            sb.Append(skeleton.Joints[JointType.ElbowLeft].Position.Y.ToString() + ", ");
+            sb.Append(skeleton.Joints[JointType.ElbowRight].Position.Y.ToString() + ", ");
+            sb.Append(skeleton.Joints[JointType.Spine].Position.X.ToString() + ", ");
+            sb.Append(skeleton.Joints[JointType.AnkleLeft].Position.Y.ToString() + ", ");
+            sb.Append(skeleton.Joints[JointType.AnkleRight].Position.Y.ToString() + "\n ");
+            if (fileName != null)
+            {
+                File.AppendAllText(fileName, sb.ToString());
+            }
             // Left Arm
             this.DrawBone(skeleton, drawingContext, JointType.ShoulderLeft, JointType.ElbowLeft);
             this.DrawBone(skeleton, drawingContext, JointType.ElbowLeft, JointType.WristLeft);
             this.DrawBone(skeleton, drawingContext, JointType.WristLeft, JointType.HandLeft);
-
+                   
             // Right Arm
             this.DrawBone(skeleton, drawingContext, JointType.ShoulderRight, JointType.ElbowRight);
             this.DrawBone(skeleton, drawingContext, JointType.ElbowRight, JointType.WristRight);
@@ -328,19 +370,6 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         /// </summary>
         /// <param name="sender">object sending the event</param>
         /// <param name="e">event arguments</param>
-        private void CheckBoxSeatedModeChanged(object sender, RoutedEventArgs e)
-        {
-            if (null != this.sensor)
-            {
-                if (this.checkBoxSeatedMode.IsChecked.GetValueOrDefault())
-                {
-                    this.sensor.SkeletonStream.TrackingMode = SkeletonTrackingMode.Seated;
-                }
-                else
-                {
-                    this.sensor.SkeletonStream.TrackingMode = SkeletonTrackingMode.Default;
-                }
-            }
-        }
+       
     }
 }
