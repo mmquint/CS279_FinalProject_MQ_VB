@@ -34,6 +34,9 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
         // code for the csv data file
 
+        // globals to keep track of progress in routine (starts out as rest)
+        private Move currentMove = new Move(0, 60);
+
         /// Initializes a new instance of the MainWindow class.
         public MainWindow()
         {

@@ -5,22 +5,49 @@ using System.Text;
 
 namespace Microsoft.Samples.Kinect.SkeletonBasics.Exercises
 {
+
+    public enum Moves
+    {
+        rest,
+        warmUp,
+        coolDown,
+        jumpingJack,
+        burpee,
+        highJump
+    };
     class Move
     {
-        enum Moves
-        {
-            jumpingJacks,
-            burpees,
-            highJumps
-        };
+        public string Name;
+        public Moves Type;
+        private int Count = 0;
+        private int Duration;
 
-        string Name;
-        Moves Type;
-
-        public Move(int type)
+        public Move(int type, int duration)
         {
             Type = (Moves)type;
             Name = Type.ToString();
+            Duration = duration;
+        }
+
+        public int GetCount()
+        {
+            return Count;
+        }
+
+        public void IncrementCount()
+        {
+            Count++;
+        }
+
+        public void SetCount(int count)
+        {
+            Count = count;
+        }
+
+        public float GetRate()
+        {
+            return (float)Count / (float)Duration;
         }
     }
+    
 }
