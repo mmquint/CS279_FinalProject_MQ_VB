@@ -39,7 +39,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         private int moveNumber = 0;
         private static string fileBase = @"C:\Users\Megan\Documents\GitHub\CS279_FinalProject_MQ_VB\Code\SkeletonPerformanceTool\Data\";
         private static string folderName = HelperFunctions.GetFolderName(DateTime.Now);
-        private static string columnHeadings = "TimeStamp, FootLeft_x, FootRight_x, FootLeft_y, FootRight_y, WristLeft_x, WristRight_x,WristLeft_z, WristRight_z,KneeLeft_x, KneeRight_x,KneeLeft_y, KneeRight_y,ElbowLeft_x, ElbowRight_x,ElbowLeft_y, ElbowRight_y,Spine_y,AnkleLeft_y, AnkleRight_y\n";
+        private static string columnHeadings = "TimeStamp,FootLeft_x,FootRight_x,FootLeft_y,FootRight_y,WristLeft_x,WristRight_x,WristLeft_z,WristRight_z,KneeLeft_x,KneeRight_x,KneeLeft_y,KneeRight_y,ElbowLeft_x,ElbowRight_x,ElbowLeft_y,ElbowRight_y,Spine_y,AnkleLeft_y,AnkleRight_y\n";
         private string fileName;
         // globals to keep track of progress in routine (starts out as rest)
         //private Move currentMove = new Move(0, 60);
@@ -268,7 +268,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             sb.Append(skeleton.Joints[JointType.ElbowRight].Position.X.ToString() + ", ");
             sb.Append(skeleton.Joints[JointType.ElbowLeft].Position.Y.ToString() + ", ");
             sb.Append(skeleton.Joints[JointType.ElbowRight].Position.Y.ToString() + ", ");
-            sb.Append(skeleton.Joints[JointType.Spine].Position.X.ToString() + ", ");
+            sb.Append(skeleton.Joints[JointType.Head].Position.X.ToString() + ", ");
             sb.Append(skeleton.Joints[JointType.AnkleLeft].Position.Y.ToString() + ", ");
             sb.Append(skeleton.Joints[JointType.AnkleRight].Position.Y.ToString() + "\n ");
             if (fileName != null)
