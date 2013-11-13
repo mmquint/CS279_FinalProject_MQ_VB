@@ -43,7 +43,16 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         private string fileName;
         // globals to keep track of progress in routine (starts out as rest)
         //private Move currentMove = new Move(0, 60);
+        private Boolean currentlyTracking = false;
 
+        // variables to count the sets
+        private int numJumpingJacks = 0;
+        private int numArmCircles = 0;
+        private int numKneeElbow = 0;
+        private int numSquatJumps = 0;
+        private int numSideToSide = 0;
+        private int numHighMarches = 0;
+        private int numTuckJumps = 0;
 
         /// Initializes a new instance of the MainWindow class.
         public MainWindow()
@@ -94,22 +103,85 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
         private void StartClick(object sender, RoutedEventArgs e)
         {
+            //currentlyTracking = true;
             if (moveNumber == 0)
             {
                 moveNumber = 1;
                 System.IO.Directory.CreateDirectory(fileBase + folderName);
-                fileName = fileBase + folderName + @"\move" + moveNumber.ToString() + ".csv";
-                Console.WriteLine(fileName);
-                File.AppendAllText(fileName, columnHeadings);
+                //fileName = fileBase + folderName + @"\move" + moveNumber.ToString() + ".csv";
+                //Console.WriteLine(fileName);
+                //File.AppendAllText(fileName, columnHeadings);
                 return;
             }
             else return;
         }
 
+        private void StopClick(object sender, RoutedEventArgs e)
+        {
+            currentlyTracking = false;
+        }
+
         private void NextClick(object sender, RoutedEventArgs e)
         {
+            currentlyTracking = true;
             moveNumber++;
             fileName = fileBase + folderName + @"\move" + moveNumber.ToString() + ".csv";
+            File.AppendAllText(fileName, columnHeadings);
+        }
+
+        private void JumpingJackClick(object sender, RoutedEventArgs e)
+        {
+            currentlyTracking = true;
+            numJumpingJacks++;
+            fileName = fileBase + folderName + @"\jumpingjack" + numJumpingJacks.ToString() + ".csv";
+            File.AppendAllText(fileName, columnHeadings);
+        }
+
+        private void ArmCirclesClick(object sender, RoutedEventArgs e)
+        {
+            currentlyTracking = true;
+            numArmCircles++;
+            fileName = fileBase + folderName + @"\armcircles" + numArmCircles.ToString() + ".csv";
+            File.AppendAllText(fileName, columnHeadings);
+        }
+
+        private void KneeToElbowClick(object sender, RoutedEventArgs e)
+        {
+            currentlyTracking = true;
+            numKneeElbow++;
+            fileName = fileBase + folderName + @"\kneetoelbow" + numKneeElbow.ToString() + ".csv";
+            File.AppendAllText(fileName, columnHeadings);
+        }
+
+        private void SquatJumpsClick(object sender, RoutedEventArgs e)
+        {
+            currentlyTracking = true;
+            numSquatJumps++;
+            fileName = fileBase + folderName + @"\squatjumps" + numSquatJumps.ToString() + ".csv";
+            File.AppendAllText(fileName, columnHeadings);
+        }
+
+        private void SideToSideClick(object sender, RoutedEventArgs e)
+        {
+            currentlyTracking = true;
+            numSideToSide++;
+            fileName = fileBase + folderName + @"\sidetoside" + numSideToSide.ToString() + ".csv";
+            File.AppendAllText(fileName, columnHeadings);
+        }
+
+        private void HighMarchesClick(object sender, RoutedEventArgs e)
+        {
+            currentlyTracking = true;
+            numHighMarches++;
+            fileName = fileBase + folderName + @"\highmarches" + numHighMarches.ToString() + ".csv";
+            File.AppendAllText(fileName, columnHeadings);
+        }
+
+        private void TuckJumpsClick(object sender, RoutedEventArgs e)
+        {
+            currentlyTracking = true;
+            numTuckJumps++;
+            fileName = fileBase + folderName + @"\tuckjumps" + numTuckJumps.ToString() + ".csv";
             File.AppendAllText(fileName, columnHeadings);
         }
 
@@ -240,8 +312,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         /// <param name="drawingContext">drawing context to draw to</param>
         private void DrawBonesAndJoints(Skeleton skeleton, DrawingContext drawingContext)
         {
-            StringBuilder sb = new StringBuilder();
-            
+                       
             // Render Torso
             this.DrawBone(skeleton, drawingContext, JointType.Head, JointType.ShoulderCenter);
             this.DrawBone(skeleton, drawingContext, JointType.ShoulderCenter, JointType.ShoulderLeft);
@@ -251,30 +322,38 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             this.DrawBone(skeleton, drawingContext, JointType.HipCenter, JointType.HipLeft);
             this.DrawBone(skeleton, drawingContext, JointType.HipCenter, JointType.HipRight);
 
-            sb.Append(HelperFunctions.GetMSeconds(DateTime.Now) + ", ");
-            sb.Append(skeleton.Joints[JointType.FootLeft].Position.X.ToString() + ", ");
-            sb.Append(skeleton.Joints[JointType.FootRight].Position.X.ToString() + ", ");
-            sb.Append(skeleton.Joints[JointType.FootLeft].Position.Y.ToString() + ", ");
-            sb.Append(skeleton.Joints[JointType.FootRight].Position.Y.ToString() + ", ");
-            sb.Append(skeleton.Joints[JointType.WristLeft].Position.X.ToString() + ", ");
-            sb.Append(skeleton.Joints[JointType.WristRight].Position.X.ToString() + ", ");
-            sb.Append(skeleton.Joints[JointType.WristLeft].Position.Z.ToString() + ", ");
-            sb.Append(skeleton.Joints[JointType.WristRight].Position.Z.ToString() + ", ");
-            sb.Append(skeleton.Joints[JointType.KneeLeft].Position.X.ToString() + ", ");
-            sb.Append(skeleton.Joints[JointType.KneeRight].Position.X.ToString() + ", ");
-            sb.Append(skeleton.Joints[JointType.KneeLeft].Position.Y.ToString() + ", ");
-            sb.Append(skeleton.Joints[JointType.KneeRight].Position.Y.ToString() + ", ");
-            sb.Append(skeleton.Joints[JointType.ElbowLeft].Position.X.ToString() + ", ");
-            sb.Append(skeleton.Joints[JointType.ElbowRight].Position.X.ToString() + ", ");
-            sb.Append(skeleton.Joints[JointType.ElbowLeft].Position.Y.ToString() + ", ");
-            sb.Append(skeleton.Joints[JointType.ElbowRight].Position.Y.ToString() + ", ");
-            sb.Append(skeleton.Joints[JointType.Head].Position.X.ToString() + ", ");
-            sb.Append(skeleton.Joints[JointType.AnkleLeft].Position.Y.ToString() + ", ");
-            sb.Append(skeleton.Joints[JointType.AnkleRight].Position.Y.ToString() + "\n ");
-            if (fileName != null)
+            // check to see if should be tracking data
+            if (currentlyTracking)
             {
-                File.AppendAllText(fileName, sb.ToString());
+                StringBuilder sb = new StringBuilder();
+                // add content to string builder
+                sb.Append(HelperFunctions.GetMSeconds(DateTime.Now) + ", ");
+                sb.Append(skeleton.Joints[JointType.FootLeft].Position.X.ToString() + ", ");
+                sb.Append(skeleton.Joints[JointType.FootRight].Position.X.ToString() + ", ");
+                sb.Append(skeleton.Joints[JointType.FootLeft].Position.Y.ToString() + ", ");
+                sb.Append(skeleton.Joints[JointType.FootRight].Position.Y.ToString() + ", ");
+                sb.Append(skeleton.Joints[JointType.WristLeft].Position.X.ToString() + ", ");
+                sb.Append(skeleton.Joints[JointType.WristRight].Position.X.ToString() + ", ");
+                sb.Append(skeleton.Joints[JointType.WristLeft].Position.Z.ToString() + ", ");
+                sb.Append(skeleton.Joints[JointType.WristRight].Position.Z.ToString() + ", ");
+                sb.Append(skeleton.Joints[JointType.KneeLeft].Position.X.ToString() + ", ");
+                sb.Append(skeleton.Joints[JointType.KneeRight].Position.X.ToString() + ", ");
+                sb.Append(skeleton.Joints[JointType.KneeLeft].Position.Y.ToString() + ", ");
+                sb.Append(skeleton.Joints[JointType.KneeRight].Position.Y.ToString() + ", ");
+                sb.Append(skeleton.Joints[JointType.ElbowLeft].Position.X.ToString() + ", ");
+                sb.Append(skeleton.Joints[JointType.ElbowRight].Position.X.ToString() + ", ");
+                sb.Append(skeleton.Joints[JointType.ElbowLeft].Position.Y.ToString() + ", ");
+                sb.Append(skeleton.Joints[JointType.ElbowRight].Position.Y.ToString() + ", ");
+                sb.Append(skeleton.Joints[JointType.Head].Position.X.ToString() + ", ");
+                sb.Append(skeleton.Joints[JointType.AnkleLeft].Position.Y.ToString() + ", ");
+                sb.Append(skeleton.Joints[JointType.AnkleRight].Position.Y.ToString() + "\n ");
+
+                if (fileName != null)
+                {
+                    File.AppendAllText(fileName, sb.ToString());
+                }
             }
+            
             // Left Arm
             this.DrawBone(skeleton, drawingContext, JointType.ShoulderLeft, JointType.ElbowLeft);
             this.DrawBone(skeleton, drawingContext, JointType.ElbowLeft, JointType.WristLeft);
