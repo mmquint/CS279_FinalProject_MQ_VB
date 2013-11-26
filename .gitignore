@@ -21,6 +21,7 @@
 *.lot
 *.maf
 *.mtc
+*.pdf
 *.mtc1
 *.out
 *.synctex.gz
