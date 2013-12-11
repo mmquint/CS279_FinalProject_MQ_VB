@@ -1520,12 +1520,7 @@
 \global\copyrightetc{\ } %  Need to have 'something' so that adequate space is left for pasting in a line if "confinfo" is supplied.
 
 \toappear{
-Paste the appropriate copyright statement here. ACM now supports three different copyright statements:\\
-$\bullet$ ACM copyright: ACM holds the copyright on the work. This is the historical approach.\\
-$\bullet$ License: The author(s) retain copyright, but ACM receives an exclusive publication license.\\
-$\bullet$ Open Access: The author(s) wish to pay for the work to be open access. The additional fee must be paid to ACM.\\
-This text field is large enough to hold the appropriate release statement assuming it is single spaced. 
-}
+Permission to make digital or hard copies of all or part of this work for personal or classroom use is granted without fee provided that copies are not made or distributed for proﬁt or commercial advantage and that copies bear this notice and the full citation on the ﬁrst page. To copy otherwise, to republish, to post on servers or to redistribute to lists, requires prior speciﬁc permission and\/or a fee.}
 \clubpenalty=10000 
 \widowpenalty = 10000
 % End of sigchi.cls - version 0.01	
